@@ -70,7 +70,6 @@ const sendMessage = asyncHandler(async (req: any, res: any) => {
     //   throw new Error('something went wrong');
     // }
     var message: any = await Message.create(newMessage);
-    console.log(message);
     message = await message.populate("owner", "name pic");
     message = await message.populate("chat");
     message = await User.populate(message, {
