@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import connect from "./utils/connect";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes";
+import User from "./models/user.model";
 import chatRoutes from "./routes/chat.routes";
 import messageRoutes from "./routes/message.routes";
 import { notFound, errorHandler } from "./middleware/errorMiddleware";
@@ -107,8 +108,10 @@ socketIO.on("connection", (socket) => {
     });
   });
 
-  socket.off("setup", (userData) => {
+  socket.off("setup", async (userData) => {
     console.log("USER DISCONNECTED");
+    await User.findByIdAndUpdate(userData._id, { lastSeen: new Date() });
     socket.leave(userData._id);
+    socket.emit("disconnect", userData._id);
   });
 });

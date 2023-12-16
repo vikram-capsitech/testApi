@@ -95,6 +95,7 @@ const GetUserDetail = asyncHandler(async (req, res) => {
       email: user.email,
       role: user.role,
       pic: user.pic,
+      about: user.about,
     });
   } else {
     res.status(401);

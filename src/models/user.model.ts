@@ -19,6 +19,8 @@ interface IUser extends IOwner {
   email: string;
   password: string;
   pic: string;
+  about: string;
+  lastSeen: string;
 }
 
 const userSchema = new Schema<IUser>(
@@ -34,6 +36,9 @@ const userSchema = new Schema<IUser>(
       trim: true,
       select: false, // To hide users password in response
     },
+    about: {
+      type: "String",
+    },
     pic: {
       type: "String",
       required: true,
@@ -45,6 +50,9 @@ const userSchema = new Schema<IUser>(
       enum: Roles,
       required: true,
       default: Roles.User,
+    },
+    lastSeen: {
+      type: "String",
     },
   },
   { timestamps: true }

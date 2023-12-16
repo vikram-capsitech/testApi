@@ -86,4 +86,22 @@ const sendMessage = asyncHandler(async (req: any, res: any) => {
   }
 });
 
-export { allMessages, sendMessage };
+//@description     Delete Message
+//@route           Get /api/Message/
+//@access          Protected
+const deleteMessage = asyncHandler(async (req: any, res: any) => {
+  const { id } = req.params;
+  if (!id) {
+    console.log("Invalid details");
+    return res.sendStatus(400);
+  }
+  try {
+    await Message.findByIdAndDelete(req.params.id);
+    res.json({ status: "OK" });
+  } catch (error: any) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+export { allMessages, sendMessage, deleteMessage };

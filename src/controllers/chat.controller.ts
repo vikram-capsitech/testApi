@@ -97,7 +97,8 @@ const createGroupChat = asyncHandler(async (req: any, res: any) => {
       name: req.body.name,
       users: users,
       owner: req.user.id,
-      pic: req.body.pic
+      pic: req.body.pic,
+      about: req.body.about,
     } as PartialWrapper<IChat>);
 
     const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
